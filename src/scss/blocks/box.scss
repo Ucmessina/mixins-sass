@@ -1,0 +1,111 @@
+@use '../mixins/hover.scss' as *;
+@use '../mixins/pseudo.scss' as *;
+@use '../mixins/responsive.scss' as *;
+
+// .box {
+//   position: relative;
+//   width: 200px;
+//   height: 200px;
+//   background-color: orange;
+
+//   @include hover {
+//     background-color: steelblue;
+//   }
+
+//   &:after {
+//     @include pseudo(100px, 100px) {
+//       top: 200px;
+//       left: 200px;
+//       background-color: red;
+//     }
+//   }
+
+//   @include responsive(desktop) {
+//     width: 500px;
+//   }
+// }
+
+/*
+
+ORDEN DE PROPRIEDADES
+
+    - position  /top /bottom ...
+    - display   /flex /grid + propriedades 
+    - box-model /width /hight /border /padding /margin
+    - colores   /color /background-color
+    - el resto  /overflox /z-index /transition
+    
+
+*/
+
+/*
+    TRANSICCIONES
+    los animados funcionan en 3 fases:
+        --- LA PRIMERAS 2 CONSUMAN MÁS RECURSOS EN EL NAVEGADOR
+        - layout: reservar todos los espacios en la web
+        - pintado : dibuja las cosas en pantalla
+        - composite: la capa opcional que es donde metes la propriedades transform, translate, rotate. se mueven por encima del layout y el navegador no tiene que recargar cosas
+
+
+    MOVIMIENTOS Y SCALAS    ---> translate, rotate, scale SIEMPRE!
+    MOSTRAR / OCULTAR       ---> opacity SIEMPRE
+    COLORES / BG-COLOR      ---> usar la propriedad correspondiente
+
+    Se pueden animar valores o colores
+
+    -- Como corregir la animacion cuando estar fuera del hover --> teniendo un contenedor
+*/
+
+// .box-container {
+//   width: 300px;
+//   height: 300px;
+//   background-color: purple;
+//   @include hover {
+//     .box2 {
+//       translate: 100px 100px;
+//     }
+//   }
+// }
+
+// .box2 {
+//   position: absolute;
+//   width: 200px;
+//   height: 200px;
+//   background-color: orange;
+
+//   transition: translate 0.3s; // utilizar all està mal. NUNCA se pone ALL - sino la propriedad que vas a animar ej. left
+
+//   //   @include hover {
+//   //     translate: 100px 100px; // animar el left està mal porque obliga al navegador recalcular el layout y el pintado. SOLO se anima en el 99% de la vez la position, scale, opacity
+//   //   }
+// }
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: repeat(2, 200px);
+  gap: 1rem;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //   width: 200px;
+  //   height: 200px;
+  background-color: orange;
+  color: #333;
+  font-size: 3rem;
+}
+
+/*
+    Grid igual que flex es otro modelo de layout. flex puede trabajar solo en una dimension. Grid trabaja en 2 dimensiones: filas y columnas
+*/
+
+.box-1 {
+  grid-column: 2 / 4;
+}
+
+.box-2 {
+  grid-row: 1 / 3;
+}
